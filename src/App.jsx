@@ -1,21 +1,17 @@
+// src/App.jsx
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from './context/ThemeContext';
-import DashboardPage from './pages/DashboardPage';
-import AboutPage from './pages/AboutPage';
-import ErrorBoundary from './components/ErrorBoundary'; // The missing import
-
-// Import global styles
-import './App.css';
-import './pages/AboutPage.css';
-import './components/ThemeToggle.css';
+// ... other imports
 
 function App() {
-  const basename = import.meta.env.PROD ? '/bro-ker-react/' : '/';
-  
+  // REMOVE the conditional basename logic. 
+  // We are deploying to the root, so no basename is needed.
+
   return (
     <ThemeProvider>
-      <Router basename={basename}>
+      {/* Remove the basename prop. It defaults to "/" which is correct for S3. */}
+      <Router>
         <Routes>
           <Route 
             path="/" 
