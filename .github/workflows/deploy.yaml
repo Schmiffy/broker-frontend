@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14' # Or your preferred Node.js version
+          node-version: '14' 
 
       - name: Install dependencies
         run: npm install
@@ -33,7 +33,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'ap-southeast-1' 
-          SOURCE_DIR: './dist' 
+          SOURCE_DIR: 'dist' 
 
       - name: Invalidate CloudFront Distribution
         run: |
