@@ -2,15 +2,20 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// ... other imports
+import { ThemeProvider } from './context/ThemeContext'; // <-- THE MISSING IMPORT
+import DashboardPage from './pages/DashboardPage';
+import AboutPage from './pages/AboutPage';
+import ErrorBoundary from './components/ErrorBoundary';
+
+// Import global styles
+import './App.css';
+import './pages/AboutPage.css';
+import './components/ThemeToggle.css';
 
 function App() {
-  // REMOVE the conditional basename logic. 
-  // We are deploying to the root, so no basename is needed.
-
+  // No basename needed for a root S3 deployment
   return (
     <ThemeProvider>
-      {/* Remove the basename prop. It defaults to "/" which is correct for S3. */}
       <Router>
         <Routes>
           <Route 
