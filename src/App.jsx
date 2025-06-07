@@ -1,52 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import Header from './components/Header';
-import NewsWidget from './components/NewsWidget';
-import SentimentWidget from './components/SentimentWidget';
-import PortfolioTable from './components/PortfolioTable';
-import AddStockForm from './components/AddStockForm';
-import { loadStocksFromStorage, saveStocksToStorage } from './utils/storage';
-import { usePortfolioData } from './hooks/usePortfolioData';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import DashboardPage from './pages/DashboardPage';
+import AboutPage from './pages/AboutPage';
+
+// Import global styles that apply to all pages
+import './App.css';
+import './pages/AboutPage.css'; 
 
 function App() {
-    const [stocks, setStocks] = useState(loadStocksFromStorage);
-    const { priceData, newsData, isLoading, refreshAllData } = usePortfolioData(stocks);
-
-    // Effect to save stocks to localStorage whenever they change
-    useEffect(() => {
-        saveStocksToStorage(stocks);
-    }, [stocks]);
-    
-    const handleAddStock = (newStock) => {
-        setStocks(prevStocks => [...prevStocks, newStock]);
-    };
-
-    const handleDeleteStock = (stockNameToDelete) => {
-        setStocks(prevStocks => prevStocks.filter(stock => stock.name !== stockNameToDelete));
-    };
-    
-    const existingStockNames = stocks.map(s => s.name);
-
-    return (
-        <div className="container">
-            <Header />
-
-            <div className="top-sections">
-                <NewsWidget stocks={stocks} newsData={newsData} isLoading={isLoading} />
-                <SentimentWidget />
-            </div>
-
-            <PortfolioTable 
-                stocks={stocks} 
-                priceData={priceData} 
-                onDelete={handleDeleteStock} 
-            />
-
-            <AddStockForm 
-                onAddStock={handleAddStock} 
-                existingStockNames={existingStockNames}
-            />
-        </div>
-    );
+  return (
+    <Router basename="/bro-ker-react/">
+      <Routes>
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="/about" element={<AboutPage />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
