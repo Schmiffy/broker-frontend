@@ -9,7 +9,7 @@ function AboutPage() {
         <img id="site-logo" src="/logo.png" alt="Bro-ker Logo" />
       </header>
       <div style={{ position: 'absolute', top: '15px', right: '15px' }}>
-          <ThemeToggle />
+        <ThemeToggle />
       </div>
 
       <div className="about-content">
@@ -39,20 +39,21 @@ function AboutPage() {
           This "fancy" application is built with a modern web development stack:
         </p>
         <ul className="tech-stack-list">
-            <li><strong>ReactJS:</strong> For building a fast, component-based user interface.</li>
-            <li><strong>Vite:</strong> As a lightning-fast build tool and development server.</li>
-            <li><strong>React Router:</strong> For client-side navigation between pages.</li>
-            <li><strong>Pure CSS:</strong> Styled with modern CSS, including variables for easy theming and a responsive design that works on both desktop and mobile.</li>
-            <li><strong>GitHub Actions & AWS S3:</strong> For automated, continuous deployment to a scalable and reliable cloud hosting solution.</li>
+          <li><strong>ReactJS:</strong> For building a fast, component-based user interface.</li>
+          <li><strong>Vite:</strong> As a lightning-fast build tool and development server.</li>
+          <li><strong>React Router:</strong> For client-side navigation between pages.</li>
+          <li><strong>Pure CSS:</strong> Styled with modern CSS, including variables for easy theming and a responsive design that works on both desktop and mobile.</li>
+          <li><strong>GitHub Actions & AWS S3:</strong> For automated, continuous deployment to a scalable and reliable cloud hosting solution.</li>
         </ul>
-        
+
         <div className="back-to-app">
-          <Link to="/" className="button-link">
+          <Link to="/dashboard" className="button-link"> {/* Changed from "/" to "/dashboard" */}
             ← Back to My Portfolio
           </Link>
         </div>
       </div>
     </div>
+
   );
 }
 

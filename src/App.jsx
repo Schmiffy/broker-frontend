@@ -1,38 +1,43 @@
-// src/App.jsx
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from './context/ThemeContext'; // <-- THE MISSING IMPORT
-import MainPage from './pages/MainPage';
+import { ThemeProvider } from './context/ThemeContext';
+import LandingPage from './pages/LandingPage'; // Import the new page
+import DashboardPage from './pages/MainPage';
 import AboutPage from './pages/AboutPage';
 import ErrorBoundary from './components/ErrorBoundary';
 
-// Import global styles
+// Import all styles
 import './App.css';
 import './pages/AboutPage.css';
 import './components/ThemeToggle.css';
+import './pages/LandingPage.css'; // Add the new stylesheet
 
 function App() {
-  // No basename needed for a root S3 deployment
   return (
     <ThemeProvider>
       <Router>
         <Routes>
-          <Route 
-            path="/" 
+          {/* The Landing Page is now the home page */}
+          <Route path="/" element={<LandingPage />} />
+
+          {/* The main app is now at /dashboard */}
+          <Route
+            path="/dashboard"
             element={
               <ErrorBoundary>
-                <MainPage />
+                <DashboardPage />
               </ErrorBoundary>
-            } 
+            }
           />
-          <Route 
-            path="/about" 
+
+          {/* About page remains the same */}
+          <Route
+            path="/about"
             element={
               <ErrorBoundary>
                 <AboutPage />
               </ErrorBoundary>
-            } 
+            }
           />
         </Routes>
       </Router>
