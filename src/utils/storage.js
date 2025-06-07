@@ -2,17 +2,23 @@ export const loadStocksFromStorage = () => {
     try {
         const storedStocks = localStorage.getItem('brokerStocksPortfolio');
         if (storedStocks) {
-            // Only load the essential data, let the app fetch fresh prices
-            return JSON.parse(storedStocks).map(s => ({
-                name: s.name,
-                quantity: s.quantity,
-                avgPrice: s.avgPrice,
-            }));
+            const parsedStocks = JSON.parse(storedStocks);
+            // Ensure it's an array before returning
+            if (Array.isArray(parsedStocks)) {
+                return parsedStocks.map(s => ({
+                    name: s.name,
+                    quantity: s.quantity,
+                    avgPrice: s.avgPrice,
+                }));
+            }
         }
     } catch (error) {
-        console.error("Could not load stocks from local storage", error);
+        // If parsing fails, the data is corrupt. Log it and start fresh.
+        console.error("Could not parse stocks from local storage, starting fresh.", error);
+        localStorage.removeItem('brokerStocksPortfolio'); // Clean up bad data
     }
-    return []; // Return empty array on failure or if nothing is stored
+    // Return an empty array if anything goes wrong
+    return [];
 };
 
 export const saveStocksToStorage = (stocks) => {
