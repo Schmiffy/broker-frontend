@@ -15,7 +15,7 @@ function DashboardPage() {
     useEffect(() => {
         saveStocksToStorage(stocks);
     }, [stocks]);
-    
+
     const handleAddStock = (newStock) => {
         setStocks(prevStocks => [...prevStocks, newStock]);
     };
@@ -23,33 +23,23 @@ function DashboardPage() {
     const handleDeleteStock = (stockNameToDelete) => {
         setStocks(prevStocks => prevStocks.filter(stock => stock.name !== stockNameToDelete));
     };
-    
+
     const existingStockNames = stocks.map(s => s.name);
 
     return (
         <div className="container">
+            {/* Place the toggle in the top right */}
+            <div style={{ position: 'absolute', top: '15px', right: '15px' }}>
+                <ThemeToggle />
+            </div>
+
             <Header />
 
-            {/* Link to the About Page */}
             <div style={{ textAlign: 'right', marginBottom: '20px' }}>
                 <Link to="/about">What is this page?</Link>
             </div>
 
-            <div className="top-sections">
-                <NewsWidget stocks={stocks} newsData={newsData} isLoading={isLoading} />
-                <SentimentWidget />
-            </div>
-
-            <PortfolioTable 
-                stocks={stocks} 
-                priceData={priceData} 
-                onDelete={handleDeleteStock} 
-            />
-
-            <AddStockForm 
-                onAddStock={handleAddStock} 
-                existingStockNames={existingStockNames}
-            />
+            {/* ... rest of the component */}
         </div>
     );
 }
