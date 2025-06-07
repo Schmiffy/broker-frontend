@@ -41,10 +41,10 @@ function DashboardPage() {
             </div>
 
             <Header />
-
+{/* 
             <div style={{ textAlign: 'right', marginBottom: '20px' }}>
                 <Link to="/about">What is this page?</Link>
-            </div>
+            </div> */}
 
             <div className="top-sections">
                 <NewsWidget stocks={stocks || []} newsData={newsData} isLoading={isLoading} />

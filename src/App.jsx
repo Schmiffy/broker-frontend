@@ -3,7 +3,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext'; // <-- THE MISSING IMPORT
-import DashboardPage from './pages/DashboardPage';
+import MainPage from './pages/MainPage';
 import AboutPage from './pages/AboutPage';
 import ErrorBoundary from './components/ErrorBoundary';
 
@@ -22,7 +22,7 @@ function App() {
             path="/" 
             element={
               <ErrorBoundary>
-                <DashboardPage />
+                <MainPage />
               </ErrorBoundary>
             } 
           />

@@ -1,0 +1,31 @@
+/* /Users/michaelschmidt/git/broker-frontend/src/components/AddStockForm.css */
+
+/* Style for labels to position them above input fields */
+.add-stock-form .form-group label {
+  display: block; /* Makes the label take the full width and push content below it */
+  margin-bottom: 5px; /* Adds a little space between the label and the input */
+}
+
+/* General style for all inputs in this form for consistent padding */
+.add-stock-form .form-group input {
+  /* Adjust padding to your liking: top/bottom left/right */
+  padding: 8px 12px;
+}
+
+/* Style for the Stock Ticker (text input) */
+.add-stock-form .form-group #stockName {
+  text-align: left; /* Default for text, but explicit */
+}
+
+/* Style for Quantity and Average Price (number inputs) */
+.add-stock-form .form-group #stockQuantity,
+.add-stock-form .form-group #avgPrice {
+  text-align: right; /* Numbers often look better right-aligned */
+  /* You might want specific padding for right-aligned text */
+  padding-right: 12px;
+}
+
+/* Example: If you wanted to center text in a specific input */
+/* .add-stock-form .form-group #someOtherInput {
+  text-align: center;
+} */
