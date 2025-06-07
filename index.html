@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PYEVCK71Y7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PYEVCK71Y7');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bro-ker</title>
+    <link id="favicon" rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        :root {
+            --bg-color: #22272B;
+            --container-bg: #2d343a;
+            --text-color: #e0f7fa;
+            --primary-accent: #00e0c6;
+            --secondary-accent: #00a0b0;
+            --input-bg: #3a4148;
+            --input-border: #5c6770;
+            --glow-color-primary: rgba(0, 224, 198, 0.7);
+            --glow-color-secondary: rgba(0, 160, 176, 0.5);
+            --danger-color: #e57373;
+            --danger-hover-color: #ef5350;
+            --success-color: #69f0ae;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: var(--container-bg);
+            padding: 15px; /* Default mobile padding */
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.3), 0 0 15px var(--glow-color-primary);
+        }
+        @media (min-width: 769px) {
+            .container {
+                padding: 30px; /* Larger padding for desktop */
+            }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px; /* Slightly reduced margin for mobile */
+        }
+         @media (min-width: 769px) {
+            header {
+                margin-bottom: 40px;
+            }
+        }
+
+
+        #site-logo {
+            max-width: 200px; /* Smaller default for mobile */
+            height: auto;
+            filter: drop-shadow(0 0 8px var(--glow-color-primary));
+        }
+        @media (min-width: 769px) {
+            #site-logo {
+                max-width: 300px;
+            }
+        }
+
+        .top-sections {
+            display: flex;
+            flex-direction: column; /* Stack by default for mobile */
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+        @media (min-width: 769px) {
+            .top-sections {
+                flex-direction: row;
+                gap: 30px;
+                margin-bottom: 40px;
+            }
+        }
+
+        .news-section, .sentiment-section {
+            flex: 1;
+            padding: 15px;
+            background-color: rgba(0,0,0,0.1);
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            min-height: 200px; /* Give some base height */
+        }
+         @media (min-width: 769px) {
+             .news-section, .sentiment-section {
+                padding: 20px;
+             }
+        }
+
+        .news-section h2, .sentiment-section h2 {
+            font-size: 1.2em; /* Smaller default for mobile */
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--primary-accent);
+            text-shadow: 0 0 5px var(--glow-color-primary);
+            flex-shrink: 0;
+        }
+        @media (min-width: 769px) {
+            .news-section h2, .sentiment-section h2 {
+                font-size: 1.4em;
+                margin-bottom: 15px;
+            }
+        }
+        
+        .scrollable-content {
+            flex-grow: 1;
+            max-height: 250px; /* Default for mobile */
+            overflow-y: auto;
+            padding-right: 5px; /* Space from scrollbar */
+        }
+        @media (min-width: 769px) {
+            .scrollable-content {
+                max-height: 300px;
+            }
+        }
+
+        .scrollable-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .scrollable-content::-webkit-scrollbar-track {
+            background: var(--input-bg);
+            border-radius: 4px;
+        }
+        .scrollable-content::-webkit-scrollbar-thumb {
+            background: var(--secondary-accent);
+            border-radius: 4px;
+        }
+        .scrollable-content::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-accent);
+        }
+
+        .news-item {
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--input-border);
+            font-size: 0.9em; /* Slightly smaller for mobile */
+        }
+        .news-item:last-child {
+            border-bottom: none; margin-bottom: 0; padding-bottom: 0;
+        }
+        .news-item a {
+            color: var(--text-color); text-decoration: none; font-weight: 500;
+        }
+        .news-item a:hover {
+            color: var(--primary-accent); text-decoration: underline;
+        }
+        .news-item .news-source {
+            font-size: 0.85em; color: var(--secondary-accent); display: block; margin-top: 3px;
+        }
+
+        .sentiment-section p { /* If static content */
+            font-size: 0.9em; margin-bottom: 6px;
+        }
+         @media (min-width: 769px) {
+             .sentiment-section p {
+                font-size: 1em; margin-bottom: 8px;
+            }
+        }
+
+
+        .portfolio-section {
+            overflow-x: auto; /* Enable horizontal scrolling for the table's container */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px; /* Reduced margin */
+            min-width: 700px; /* Force table width, adjust based on content */
+        }
+
+        th, td {
+            padding: 8px 10px; /* Smaller padding for mobile */
+            text-align: left;
+            border-bottom: 1px solid var(--input-border);
+            white-space: nowrap; 
+            font-size: 0.85em; /* Smaller font for mobile table */
+        }
+         @media (min-width: 769px) {
+            th, td {
+                padding: 12px 15px;
+                font-size: 0.95em;
+            }
+        }
+
+        th {
+            background-color: rgba(0,0,0,0.2);
+            font-weight: 600;
+            color: var(--secondary-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 10; /* Ensure header is above scrolling content if table scrolls vertically */
+        }
+        
+        th:nth-child(2), td:nth-child(2),
+        th:nth-child(3), td:nth-child(3),
+        th:nth-child(4), td:nth-child(4),
+        th:nth-child(5), td:nth-child(5),
+        th:nth-child(6), td:nth-child(6)
+        {
+            text-align: right;
+        }
+
+        .add-stock-form h3 {
+            font-size: 1.3em; /* Smaller for mobile */
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--primary-accent);
+            text-shadow: 0 0 5px var(--glow-color-primary);
+        }
+        @media (min-width: 769px) {
+            .add-stock-form h3 {
+                font-size: 1.6em; margin-bottom: 25px;
+            }
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Stack by default */
+            gap: 15px;
+            align-items: end;
+        }
+        @media (min-width: 600px) { /* When form can fit more side-by-side */
+             .form-grid {
+                 grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Smaller min for auto-fit */
+                 gap: 15px;
+            }
+        }
+        @media (min-width: 880px) { /* Specific layout for 3 inputs + button */
+            .form-grid {
+                 grid-template-columns: repeat(3, 1fr) auto; /* 3 inputs, button auto width */
+                 gap: 20px;
+            }
+            .form-grid button {
+                grid-column: auto; 
+                align-self: end; 
+                margin-top: 0; /* Reset margin-top if not stacked */
+            }
+        }
+
+        .form-group label {
+            margin-bottom: 6px; font-size: 0.85em;
+        }
+        @media (min-width: 769px) {
+            .form-group label { margin-bottom: 8px; font-size: 0.9em; }
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"] {
+            padding: 12px 10px; /* Good tap target */
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            border-radius: 6px;
+            font-size: 0.95em; /* Consistent input font size */
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .form-group input[type="text"]:focus,
+        .form-group input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 8px var(--glow-color-primary);
+        }
+        .form-group input[type="number"] { text-align: right; }
+
+        button { /* General button style */
+            padding: 12px 18px;
+            background-color: var(--primary-accent);
+            color: var(--bg-color);
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease, box-shadow 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: 100%; /* Default full width for mobile */
+        }
+         @media (min-width: 600px) { /* Adjust width for non-stacked buttons */
+            .form-grid button { /* Specifically for form's Add Stock button */
+                width: auto; /* Allow auto width if not stacked */
+            }
+        }
+
+        .form-grid button { /* "Add Stock" button specific stacking margin */
+             margin-top: 10px;
+        }
+
+
+        button:hover {
+            background-color: #00ffdb;
+            box-shadow: 0 0 10px var(--glow-color-primary);
+            transform: translateY(-1px);
+        }
+        button:active { transform: translateY(0px); }
+
+        .delete-btn {
+            background-color: var(--danger-color);
+            color: white;
+            padding: 6px 10px; /* Smaller padding for delete button */
+            font-size: 0.8em;
+            width: auto; /* Not full width */
+        }
+        .delete-btn:hover {
+            background-color: var(--danger-hover-color);
+            box-shadow: 0 0 8px rgba(229, 115, 115, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img id="site-logo" src="logo.png" alt="Bro-ker Logo">
+        </header>
+
+        <div class="top-sections">
+            <section class="news-section">
+                <h2>Company News</h2>
+                <div class="scrollable-content" id="news-content">
+                    <p>Loading news...</p>
+                </div>
+            </section>
+            <section class="sentiment-section">
+                <h2>Upcoming: Portfolio sentiment</h2>
+                <div class="scrollable-content" id="sentiment-content">
+                    <p>StockA sentiment is bad</p>
+                    <p>StockB sentiment is very good</p>
+                    <p>....</p>
+                </div>
+            </section>
+        </div>
+
+        <section class="portfolio-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name of the stock</th>
+                        <th>Quantity</th>
+                        <th>Average Price</th>
+                        <th>Current price</th>
+                        <th>Current value</th>
+                        <th>Earnings</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="stockTableBody">
+                </tbody>
+            </table>
+        </section>
+
+        <section class="add-stock-form">
+            <h3>Add new Stock...</h3>
+            <form id="addStockForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="stockName">Stock Name</label>
+                        <input type="text" id="stockName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="stockQuantity">Quantity</label>
+                        <input type="number" id="stockQuantity" required min="0.000001" step="any">
+                    </div>
+                    <div class="form-group">
+                        <label for="avgPrice">Average Buying Price</label>
+                        <input type="number" id="avgPrice" required min="0" step="any">
+                    </div>
+                     <button type="submit">Add Stock</button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        const stockForm = document.getElementById('addStockForm');
+        const stockTableBody = document.getElementById('stockTableBody');
+        const newsContentDiv = document.getElementById('news-content');
+        // const sentimentContentDiv = document.getElementById('sentiment-content'); // If making sentiment dynamic
+
+        let stocks = [];
+
+        // --- API Configuration ---
+        const API_BASE_URL = 'https://api.bro-ker.com'; 
+        //const API_BASE_URL = 'http://127.0.0.1:5001'; 
+        const API_PRICES_ENDPOINT = `${API_BASE_URL}/api/stock-quotes`;
+        const API_NEWS_ENDPOINT = `${API_BASE_URL}/api/company-news`;
+
+        let dataUpdateInterval; // Renamed from priceUpdateInterval
+        const UPDATE_INTERVAL_MS = 30000;
+
+        async function fetchStockData(endpoint, symbolsArray) {
+            if (!symbolsArray || symbolsArray.length === 0) {
+                console.log("No symbols to fetch data for from:", endpoint);
+                return {};
+            }
+            const symbolsQueryParam = symbolsArray.join(',');
+            try {
+                const response = await fetch(`${endpoint}?symbols=${symbolsQueryParam}`);
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({ detail: "Failed to parse error response" }));
+                    console.error(`API Error (${response.status}) for ${endpoint}:`, errorData.error || errorData.detail || "Unknown error");
+                    const errorResult = {};
+                    symbolsArray.forEach(symbol => {
+                        errorResult[symbol.toUpperCase()] = `API Error (${response.status})`;
+                    });
+                    return errorResult;
+                }
+                const data = await response.json();
+                console.log(`Fetched data from ${endpoint}:`, data);
+                return data;
+            } catch (error) {
+                console.error(`Network or other error fetching from ${endpoint}:`, error);
+                const errorResult = {};
+                symbolsArray.forEach(symbol => {
+                    errorResult[symbol.toUpperCase()] = "Network Error";
+                });
+                return errorResult;
+            }
+        }
+
+        function updatePortfolioWithFetchedPrices(fetchedPrices) {
+            stocks.forEach(stock => {
+                const priceOrError = fetchedPrices[stock.name.toUpperCase()];
+                if (typeof priceOrError === 'number') {
+                    stock.currentPrice = priceOrError;
+                    stock.priceError = null; 
+                } else if (typeof priceOrError === 'string') {
+                    stock.currentPrice = null;
+                    stock.priceError = priceOrError;
+                } else if (priceOrError === undefined && fetchedPrices.hasOwnProperty(stock.name.toUpperCase())) {
+                    stock.currentPrice = null;
+                    stock.priceError = "Price unavailable from API";
+                } else if (priceOrError === undefined) {
+                    if (stock.currentPrice === undefined || stock.currentPrice === null) {
+                         stock.currentPrice = null;
+                         stock.priceError = "Price not yet fetched or unavailable";
+                    }
+                }
+            });
+            renderTable();
+        }
+
+        function renderNews(allNewsData) {
+            newsContentDiv.innerHTML = '';
+            if (stocks.length === 0) {
+                newsContentDiv.innerHTML = '<p>Add stocks to see relevant news.</p>';
+                return;
+            }
+            let allRelevantNews = [];
+            for (const stock of stocks) {
+                const stockSymbol = stock.name.toUpperCase();
+                const newsForSymbol = allNewsData[stockSymbol];
+                if (Array.isArray(newsForSymbol)) {
+                    newsForSymbol.forEach(newsItem => {
+                        if (newsItem && newsItem.headline && newsItem.url) {
+                            allRelevantNews.push({ ...newsItem, stockSymbol: stockSymbol });
+                        }
+                    });
+                }
+            }
+            if (allRelevantNews.length === 0) {
+                if (Object.keys(allNewsData).some(key => typeof allNewsData[key] === 'string' && allNewsData[key].startsWith("Error:"))) {
+                     newsContentDiv.innerHTML = '<p>Error fetching news. Please try again later.</p>';
+                } else {
+                     newsContentDiv.innerHTML = '<p>No relevant news found for your portfolio stocks at the moment.</p>';
+                }
+                return;
+            }
+            allRelevantNews.sort((a, b) => (b.datetime || 0) - (a.datetime || 0));
+            const maxNewsItemsToShow = 5;
+            allRelevantNews.slice(0, maxNewsItemsToShow).forEach(newsItem => {
+                const newsElement = document.createElement('div');
+                newsElement.classList.add('news-item');
+                let displayHeadline = newsItem.headline;
+                if (displayHeadline.length > 80) {
+                    displayHeadline = displayHeadline.substring(0, 77) + "...";
+                }
+                newsElement.innerHTML = `
+                    <a href="${newsItem.url}" target="_blank" rel="noopener noreferrer">${displayHeadline}</a>
+                    <span class="news-source">${newsItem.stockSymbol} - ${newsItem.source || 'Unknown Source'}</span>
+                `;
+                newsContentDiv.appendChild(newsElement);
+            });
+        }
+
+        async function refreshAllStockData() {
+            console.log("Refreshing all stock data (prices and news)...");
+            const symbolsToFetch = stocks.map(stock => stock.name.toUpperCase());
+
+            if (symbolsToFetch.length > 0) {
+                const [fetchedPrices, fetchedNews] = await Promise.all([
+                    fetchStockData(API_PRICES_ENDPOINT, symbolsToFetch),
+                    fetchStockData(API_NEWS_ENDPOINT, symbolsToFetch)
+                ]);
+                updatePortfolioWithFetchedPrices(fetchedPrices);
+                renderNews(fetchedNews);
+            } else {
+                renderTable(); 
+                renderNews({}); 
+            }
+        }
+
+        function loadStocksFromLocalStorage() {
+            const storedStocks = localStorage.getItem('brokerStocksPortfolio');
+            if (storedStocks) {
+                stocks = JSON.parse(storedStocks).map(s => ({
+                    name: s.name,
+                    quantity: s.quantity,
+                    avgPrice: s.avgPrice,
+                    currentPrice: null,
+                    priceError: null
+                }));
+            } else {
+                stocks = [];
+            }
+        }
+
+        function saveStocksToLocalStorage() {
+            const stocksToStore = stocks.map(s => ({
+                name: s.name,
+                quantity: s.quantity,
+                avgPrice: s.avgPrice
+            }));
+            localStorage.setItem('brokerStocksPortfolio', JSON.stringify(stocksToStore));
+        }
+
+        function renderTable() {
+            stockTableBody.innerHTML = '';
+            if (stocks.length === 0) {
+                const row = stockTableBody.insertRow();
+                const cell = row.insertCell();
+                cell.colSpan = 7;
+                cell.textContent = "No stocks in your portfolio. Add one below.";
+                cell.style.textAlign = "center";
+                cell.style.padding = "20px";
+                return;
+            }
+            stocks.forEach((stock, index) => {
+                const row = stockTableBody.insertRow();
+                let currentPriceNum = null;
+                let currentValueDisplay = 'N/A';
+                let currentPriceDisplay = 'Fetching...';
+
+                if (stock.priceError) {
+                    currentPriceDisplay = stock.priceError;
+                } else if (stock.currentPrice !== null && stock.currentPrice !== undefined) {
+                    currentPriceNum = parseFloat(stock.currentPrice);
+                    currentPriceDisplay = formatNumber(currentPriceNum);
+                    currentValueDisplay = formatNumber(parseFloat(stock.quantity) * currentPriceNum, true, true);
+                }
+
+                row.insertCell().textContent = stock.name;
+                row.insertCell().textContent = formatNumber(stock.quantity, false);
+                row.insertCell().textContent = formatNumber(stock.avgPrice);
+                row.insertCell().textContent = currentPriceDisplay;
+                row.insertCell().textContent = currentValueDisplay;
+
+                const earningsCell = row.insertCell();
+                let totalInvested = 0;
+                if (stock.quantity && stock.avgPrice) {
+                    totalInvested = parseFloat(stock.quantity) * parseFloat(stock.avgPrice);
+                }
+                let absoluteEarningsDisplay = 'N/A';
+                let earningsColor = 'var(--text-color)';
+                if (currentPriceNum !== null && !isNaN(totalInvested) && totalInvested > 0) {
+                    const currentTotalValue = parseFloat(stock.quantity) * currentPriceNum;
+                    const absoluteEarnings = currentTotalValue - totalInvested;
+                    const percentageEarnings = (absoluteEarnings / totalInvested) * 100;
+                    absoluteEarningsDisplay = `${formatNumber(absoluteEarnings, true, true)} <br> <span style="font-size:0.85em;">(${formatNumber(percentageEarnings, true, false)}%)</span>`;
+                    if (absoluteEarnings > 0.001) { earningsColor = 'var(--success-color)'; }
+                    else if (absoluteEarnings < -0.001) { earningsColor = 'var(--danger-color)'; }
+                }
+                earningsCell.innerHTML = absoluteEarningsDisplay;
+                earningsCell.style.color = earningsColor;
+                earningsCell.style.textAlign = "right";
+
+                const actionCell = row.insertCell();
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.classList.add('delete-btn');
+                deleteButton.onclick = () => deleteStock(index);
+                actionCell.appendChild(deleteButton);
+            });
+        }
+
+        function formatNumber(num, useDecimals = true, useThousandsSeparator = false) {
+            const number = parseFloat(num);
+            if (isNaN(number)) return 'N/A';
+            let options = {};
+            if (useDecimals) { options.minimumFractionDigits = 2; options.maximumFractionDigits = 2; }
+            else { options.minimumFractionDigits = 0; options.maximumFractionDigits = 0; }
+            if (useThousandsSeparator) { return number.toLocaleString('en-US', options); }
+            return number.toFixed(options.maximumFractionDigits);
+        }
+
+        stockForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const nameInput = document.getElementById('stockName');
+            const quantityInput = document.getElementById('stockQuantity');
+            const avgPriceInput = document.getElementById('avgPrice');
+            const name = nameInput.value.trim().toUpperCase();
+            const quantity = parseFloat(quantityInput.value);
+            const avgPrice = parseFloat(avgPriceInput.value);
+
+            if (!name || isNaN(quantity) || quantity <= 0.0000001 || isNaN(avgPrice) || avgPrice < 0) {
+                alert('Please fill in all fields correctly. Name is required. Quantity > 0. Average price >= 0.');
+                return;
+            }
+            if (stocks.some(s => s.name === name)) {
+                alert(`Stock ${name} is already in your portfolio.`);
+                stockForm.reset(); nameInput.focus(); return;
+            }
+            const newStock = { name, quantity, avgPrice, currentPrice: null, priceError: null };
+            stocks.push(newStock);
+            saveStocksToLocalStorage();
+            renderTable();
+            stockForm.reset(); nameInput.focus();
+            await refreshAllStockData();
+            if (stocks.length > 0 && !dataUpdateInterval) {
+                 startDataUpdateInterval();
+            }
+        });
+
+        function deleteStock(index) {
+            const stockNameToDelete = stocks[index].name;
+            if (confirm(`Are you sure you want to delete ${stockNameToDelete}?`)) {
+                stocks.splice(index, 1);
+                saveStocksToLocalStorage();
+                renderTable();
+                if (stocks.length > 0) {
+                    refreshAllStockData(); 
+                } else {
+                    stopDataUpdateInterval();
+                    renderNews({}); 
+                }
+            }
+        }
+
+        function startDataUpdateInterval() {
+            stopDataUpdateInterval();
+            if (stocks.length > 0) {
+                console.log(`Starting periodic data updates every ${UPDATE_INTERVAL_MS / 1000} seconds.`);
+                dataUpdateInterval = setInterval(refreshAllStockData, UPDATE_INTERVAL_MS);
+            } else {
+                console.log("No stocks to track, interval not started.");
+            }
+        }
+
+        function stopDataUpdateInterval() {
+            if (dataUpdateInterval) {
+                clearInterval(dataUpdateInterval);
+                dataUpdateInterval = null;
+                console.log("Stopped periodic data updates.");
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStocksFromLocalStorage();
+            renderTable(); 
+            refreshAllStockData().then(() => {
+                if (stocks.length > 0) {
+                    startDataUpdateInterval();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
