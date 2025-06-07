@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './AddStockForm.css'; // Import the CSS file
 
 function AddStockForm({ onAddStock, existingStockNames }) {
     const [name, setName] = useState('');
@@ -36,7 +37,7 @@ function AddStockForm({ onAddStock, existingStockNames }) {
             <form onSubmit={handleSubmit}>
                 <div className="form-grid">
                     <div className="form-group">
-                        <label htmlFor="stockName">Stock Name</label>
+                        <label htmlFor="stockName">Stock Ticker</label>
                         <input type="text" id="stockName" required value={name} onChange={e => setName(e.target.value)} />
                     </div>
                     <div className="form-group">
