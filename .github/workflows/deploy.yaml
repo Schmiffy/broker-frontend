@@ -10,19 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    #   - name: Checkout code
-    #     uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    #   - name: Set up Node.js
-    #     uses: actions/setup-node@v2
-    #     with:
-    #       node-version: '14' # Or your preferred Node.js version
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14' # Or your preferred Node.js version
 
-    #   - name: Install dependencies
-    #     run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    #   - name: Build the project
-    #     run: npm run build
+      - name: Build the project
+        run: npm run build
 
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
@@ -33,7 +33,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'ap-southeast-1' 
-          SOURCE_DIR: '.' 
+          SOURCE_DIR: './dist' 
 
       - name: Invalidate CloudFront Distribution
         run: |
