@@ -65,10 +65,6 @@ function LandingPage() {
                     <Link to="/dashboard" className="cta-button-primary large">Launch Bro-ker Now</Link>
                 </section>
             </main>
-
-            <footer className="landing-footer">
-                <p>© {new Date().getFullYear()} Bro-ker. All data is for informational purposes only.</p>
-            </footer>
         </div>
     );
 }

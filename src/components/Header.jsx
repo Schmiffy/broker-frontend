@@ -19,7 +19,6 @@ function Header() {
                 <div className="header-left">
                     <NavLink to="/" className="header-logo-link">
                         <img src="/logo.png" alt="Bro-ker Logo" className="header-logo" />
-                        <span>Bro-ker</span>
                     </NavLink>
                 </div>
                 <nav className="header-nav">

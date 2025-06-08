@@ -46,8 +46,13 @@ function App() {
                   </ErrorBoundary>
                 }
               />
+              <Route path="/auth" element={
+                <ErrorBoundary>
+                  <AuthPage />
+                </ErrorBoundary>
+              } />
             </Route>
-            <Route path="/auth" element={<AuthPage />} /> 
+
           </Routes>
         </Router>
       </ThemeProvider>
