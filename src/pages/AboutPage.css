@@ -73,3 +73,8 @@
     transform: translateY(-1px);
     color: var(--bg-color);
 }
+
+.theme-toggle-container {
+    position: absolute;
+    top: 15px;
+}

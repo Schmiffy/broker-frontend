@@ -5,12 +5,6 @@ import './AboutPage.css'; // We'll create this for custom styling
 function AboutPage() {
   return (
     <div className="about-container">
-      <header>
-        <img id="site-logo" src="/logo.png" alt="Bro-ker Logo" />
-      </header>
-      <div style={{ position: 'absolute', top: '15px', right: '15px' }}>
-        <ThemeToggle />
-      </div>
 
       <div className="about-content">
         <h1>What is Bro-ker?</h1>

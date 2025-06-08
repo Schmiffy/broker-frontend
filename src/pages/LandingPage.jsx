@@ -11,10 +11,10 @@ const CodeIcon = () => <svg /* SVG code for code */ xmlns="http://www.w3.org/200
 function LandingPage() {
     return (
         <div className="landing-container">
-            <nav className="landing-nav">
+            {/* <nav className="landing-nav">
                 <img src="/logo.png" alt="Bro-ker Logo" className="nav-logo" />
-                <Link to="/dashboard" className="nav-button">Launch App</Link>
-            </nav>
+                <Link to="/dashboard" className="nav-button">Login/Sign Up</Link>
+            </nav> */}
 
             <main>
                 <section className="hero-section">
@@ -46,8 +46,8 @@ function LandingPage() {
                         <p>Inspect the code, contribute, or host it yourself. Full transparency is built-in.</p>
                     </div>
                 </section>
-
-                <section className="how-it-works-section">
+{/* TODO late */}
+                {/* <section className="how-it-works-section">
                     <h2>How We Protect Your Privacy</h2>
                     <div className="privacy-content">
                         <img src="/privacy-diagram.png" alt="Diagram showing data flow" className="privacy-diagram" />
@@ -57,7 +57,7 @@ function LandingPage() {
                             Your portfolio data is never uploaded, synced, or stored on any central server. This simple, powerful design ensures only you have access to your financial information.
                         </p>
                     </div>
-                </section>
+                </section> */}
 
                 <section className="final-cta-section">
                     <h2>Ready to Take Control?</h2>

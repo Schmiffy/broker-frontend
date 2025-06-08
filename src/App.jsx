@@ -1,47 +1,58 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
-import LandingPage from './pages/LandingPage'; // Import the new page
-import DashboardPage from './pages/MainPage';
+import { AuthProvider } from './context/AuthContext'; // Correct import
+
+// Layouts and Pages
+import MainLayout from './components/MainLayout'; // Import the new layout
+import LandingPage from './pages/LandingPage';
+import AuthPage from './pages/AuthPage';
+import DashboardPage from './pages/DashboardPage';
 import AboutPage from './pages/AboutPage';
 import ErrorBoundary from './components/ErrorBoundary';
 
+
+
 // Import all styles
 import './App.css';
-import './pages/AboutPage.css';
-import './components/ThemeToggle.css';
-import './pages/LandingPage.css'; // Add the new stylesheet
+// ... other style imports
 
 function App() {
   return (
-    <ThemeProvider>
-      <Router>
-        <Routes>
-          {/* The Landing Page is now the home page */}
-          <Route path="/" element={<LandingPage />} />
+    <AuthProvider>
 
-          {/* The main app is now at /dashboard */}
-          <Route
-            path="/dashboard"
-            element={
-              <ErrorBoundary>
-                <DashboardPage />
-              </ErrorBoundary>
-            }
-          />
+      <ThemeProvider>
+        <Router>
+          <Routes>
+            <Route element={<MainLayout />}>
+              <Route path="/" element={
+                <ErrorBoundary>
+                  <LandingPage />
+                </ErrorBoundary>
+              } />
+              <Route
+                path="/dashboard"
+                element={
+                  <ErrorBoundary>
+                    <DashboardPage />
+                  </ErrorBoundary>
+                }
+              />
+              <Route
+                path="/about"
+                element={
+                  <ErrorBoundary>
+                    <AboutPage />
+                  </ErrorBoundary>
+                }
+              />
+            </Route>
+            <Route path="/auth" element={<AuthPage />} /> 
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </AuthProvider>
 
-          {/* About page remains the same */}
-          <Route
-            path="/about"
-            element={
-              <ErrorBoundary>
-                <AboutPage />
-              </ErrorBoundary>
-            }
-          />
-        </Routes>
-      </Router>
-    </ThemeProvider>
   );
 }
 

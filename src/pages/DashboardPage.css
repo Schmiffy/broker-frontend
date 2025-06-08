@@ -1,0 +1,71 @@
+/* src/pages/DashboardPage.css */
+
+/* Basic layout and spacing */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr; /* Default to single column */
+    gap: 20px;
+}
+
+/* Header styling (already in Header.css, but ensure it fits) */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header #site-logo {
+    max-width: 150px; /* Adjust as needed */
+    height: auto;
+}
+
+/* Layout for top sections (News and Sentiment) */
+.top-sections {
+    display: grid;
+    grid-template-columns: 1fr; /* Stack on small screens */
+    gap: 20px;
+}
+
+/* Responsive layout for larger screens */
+@media (min-width: 768px) {
+    .top-sections {
+        grid-template-columns: 2fr 1fr; /* News takes 2/3, Sentiment 1/3 */
+    }
+}
+
+/* Portfolio Table styling (already in PortfolioTable.css, but ensure it fits) */
+/* AddStockForm styling (already in AddStockForm.css, but ensure it fits) */
+
+/* General card/section styling */
+section {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+}
+
+h3 {
+    color: var(--text-color-secondary);
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+/* Link styling */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Theme Toggle positioning */
+.theme-toggle-container {
+    position: absolute;
+    top: 15px;
+}
