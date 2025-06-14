@@ -2,6 +2,19 @@ import React from 'react';
 import { formatNumber } from '../utils/formatters';
 
 function PortfolioRow({ stock, priceData, onDelete }) {
+    // Guard clause to ensure stock and stock.name are valid and a non-empty string
+    if (!stock || typeof stock.name !== 'string' || stock.name.trim() === '') {
+        console.error("PortfolioRow: Received invalid or incomplete stock data. Stock:", stock);
+        // Render a placeholder row or null to prevent crashing
+        return (
+            <tr>
+                <td colSpan="7" style={{ textAlign: 'center', color: 'var(--danger-color)' }}>
+                    Invalid stock data
+                </td>
+            </tr>
+        );
+    }
+
     const { name, quantity, avgPrice } = stock;
     const currentPrice = priceData[name.toUpperCase()];
     
