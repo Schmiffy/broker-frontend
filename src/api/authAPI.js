@@ -1,39 +1,14 @@
-// This is a fake API to simulate backend authentication.
-// In a real app, this would be an actual HTTP client (like axios or fetch).
+import axios from 'axios';
 
-export const fakeAuthAPI = {
-    /**
-     * @param {string} email
-     * @param {string} password
-     * @returns {Promise<string>} A fake JWT token
-     */
-    login: (email, password) => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                if (email === 'test@example.com' && password === 'password') {
-                    // In a real app, the server would return a JWT.
-                    const fakeToken = `fake-jwt-token-for-${email}-${Date.now()}`;
-                    resolve({ token: fakeToken });
-                } else {
-                    reject(new Error('Invalid email or password.'));
-                }
-            }, 500); // Simulate network delay
-        });
-    },
+const API_BASE_URL = 'https://api.bro-ker.com/api'; // Replace with your actual API base URL
 
-    /**
-     * @param {string} email
-     * @param {string} password
-     * @returns {Promise<string>} A fake JWT token
-     */
-    signup: (email, password) => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                // In a real app, the server would create a user and return a JWT.
-                console.log(`Signed up user with email: ${email}`);
-                const fakeToken = `fake-jwt-token-for-${email}-${Date.now()}`;
-                resolve({ token: fakeToken });
-            }, 500); // Simulate network delay
-        });
-    },
+export const authAPI = {
+  login: async (username, password) => {
+    const response = await axios.post(`${API_BASE_URL}/auth`, { username, password });
+    return response.data;
+  },
+  signup: async (username, password) => {
+    const response = await axios.post(`${API_BASE_URL}/signup`, { username, password });
+    return response.data;
+  }
 };

@@ -1,42 +1,45 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from "react-hook-form";
 import { AuthContext } from '../context/AuthContext';
-import { fakeAuthAPI } from '../api/authAPI';
-import './AuthPage.css'; // We'll create this file next
+import { authAPI } from '../api/authAPI';
+
+import './AuthPage.css';
 
 function AuthPage() {
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
     const [isLoginMode, setIsLoginMode] = useState(true);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [apiError, setApiError] = useState(null);
 
     const navigate = useNavigate();
     const { login } = useContext(AuthContext);
 
     const switchModeHandler = () => {
         setIsLoginMode(prevMode => !prevMode);
-        setError(null);
+        setApiError(null);
     };
 
-    const submitHandler = async (event) => {
-        event.preventDefault();
-        setIsLoading(true);
-        setError(null);
+    const onSubmit = async (data) => {
+        setApiError(null);
+        const { email, password } = data;
 
         try {
             let response;
             if (isLoginMode) {
-                response = await fakeAuthAPI.login(email, password);
+                response = await authAPI.login(email, password);
             } else {
-                response = await fakeAuthAPI.signup(email, password);
+                response = await authAPI.signup(email, password);
             }
-            login(response.token); // Update auth state via context
-            navigate('/dashboard'); // Redirect to dashboard on success
+
+
+            login(response.IdToken);
+            navigate('/dashboard');
         } catch (err) {
-            setError(err.message || 'Something went wrong, please try again.');
-        } finally {
-            setIsLoading(false);
+            if (err.response && err.response.data && err.response.data.message) {
+                setApiError(err.response.data.message);
+            } else {
+                setApiError('Something went wrong, please try again.');
+            }
         }
     };
 
@@ -44,21 +47,48 @@ function AuthPage() {
         <div className="auth-container">
             <div className="auth-card">
                 <h2>{isLoginMode ? 'Login' : 'Sign Up'}</h2>
-                <form onSubmit={submitHandler}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
-                        <input type="email" id="email" required value={email} onChange={e => setEmail(e.target.value)} />
+                        <input
+                            type="email"
+                            id="email"
+                            {...register("email", {
+                                required: "Email is required",
+                                pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                    message: "Invalid email address"
+                                }
+                            })}
+                        />
+                        {errors.email && <p className="error-text">{errors.email.message}</p>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="password" required minLength="6" value={password} onChange={e => setPassword(e.target.value)} />
+                        <input
+                            type="password"
+                            id="password"
+                            {...register("password", {
+                                required: "Password is required",
+                                minLength: {
+                                    value: 6,
+                                    message: "Password must be at least 6 characters"
+                                }
+                            })}
+                        />
+                        {errors.password && <p className="error-text">{errors.password.message}</p>}
                     </div>
-                    {error && <p className="error-text">{error}</p>}
+                    {apiError && <p className="error-text">{apiError}</p>}
                     <div className="form-actions">
-                        <button type="submit" disabled={isLoading}>
-                            {isLoading ? 'Sending...' : (isLoginMode ? 'Login' : 'Create Account')}
+                        <button type="submit" disabled={isSubmitting}>
+                            {isSubmitting ? 'Sending...' : (isLoginMode ? 'Login' : 'Create Account')}
                         </button>
-                        <button type="button" className="toggle-button" onClick={switchModeHandler}>
+                        <button
+                            type="button"
+                            className="toggle-button"
+                            onClick={switchModeHandler}
+                            disabled={isSubmitting}
+                        >
                             Switch to {isLoginMode ? 'Sign Up' : 'Login'}
                         </button>
                     </div>
