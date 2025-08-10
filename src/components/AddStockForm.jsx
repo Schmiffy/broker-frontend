@@ -4,13 +4,13 @@ import './AddStockForm.css'; // Import the CSS file
 function AddStockForm({ onAddStock, existingStockNames }) {
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState('');
-    const [avgPrice, setAvgPrice] = useState('');
+    const [average_price, setAveragePrice] = useState('');
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const stockName = name.trim().toUpperCase();
         
-        if (!stockName || !quantity || !avgPrice) {
+        if (!stockName || !quantity || !average_price) {
             alert('Please fill in all fields.');
             return;
         }
@@ -22,13 +22,13 @@ function AddStockForm({ onAddStock, existingStockNames }) {
         onAddStock({
             name: stockName,
             quantity: parseFloat(quantity),
-            avgPrice: parseFloat(avgPrice)
+            average_price: parseFloat(average_price)
         });
 
         // Reset form
         setName('');
         setQuantity('');
-        setAvgPrice('');
+        setAveragePrice('');
     };
 
     return (
@@ -45,8 +45,8 @@ function AddStockForm({ onAddStock, existingStockNames }) {
                         <input type="number" id="stockQuantity" required min="0.000001" step="any" value={quantity} onChange={e => setQuantity(e.target.value)} />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="avgPrice">Average Buying Price</label>
-                        <input type="number" id="avgPrice" required min="0" step="any" value={avgPrice} onChange={e => setAvgPrice(e.target.value)} />
+                        <label htmlFor="average_price">Average Buying Price</label>
+                        <input type="number" id="average_price" required min="0" step="any" value={average_price} onChange={e => setAveragePrice(e.target.value)} />
                     </div>
                      <button type="submit">Add Stock</button>
                 </div>

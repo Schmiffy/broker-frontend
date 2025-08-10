@@ -1,5 +1,6 @@
 import React from 'react';
 import { formatNumber } from '../utils/formatters';
+import './PortfolioRow.css';
 
 function PortfolioRow({ stock, priceData, onDelete }) {
     // Guard clause to ensure stock and stock.name are valid and a non-empty string
@@ -15,16 +16,20 @@ function PortfolioRow({ stock, priceData, onDelete }) {
         );
     }
 
-    const { name, quantity, avgPrice } = stock;
+    const { name, quantity, average_price } = stock;
     const currentPrice = priceData[name.toUpperCase()];
     
     // Derived values
     const isPriceNumber = typeof currentPrice === 'number';
-    const currentPriceDisplay = isPriceNumber ? formatNumber(currentPrice) : (currentPrice || 'Fetching...');
+    const currentPriceDisplay = isPriceNumber 
+        ? formatNumber(currentPrice) 
+        : <span className="placeholder-text">{currentPrice || 'Loading...'}</span>;
     const currentValue = isPriceNumber ? quantity * currentPrice : 0;
-    const currentValueDisplay = isPriceNumber ? formatNumber(currentValue, true, true) : 'N/A';
+    const currentValueDisplay = isPriceNumber 
+        ? formatNumber(currentValue, true, true) 
+        : <span className="placeholder-text">N/A</span>;
     
-    const totalInvested = quantity * avgPrice;
+    const totalInvested = quantity * average_price;
     const absoluteEarnings = isPriceNumber ? currentValue - totalInvested : 0;
     const percentageEarnings = totalInvested > 0 && isPriceNumber ? (absoluteEarnings / totalInvested) * 100 : 0;
     
@@ -42,7 +47,7 @@ function PortfolioRow({ stock, priceData, onDelete }) {
         <tr>
             <td>{name}</td>
             <td>{formatNumber(quantity, false)}</td>
-            <td>{formatNumber(avgPrice)}</td>
+            <td>{formatNumber(average_price)}</td>
             <td>{currentPriceDisplay}</td>
             <td>{currentValueDisplay}</td>
             <td style={{ color: earningsColor }}>

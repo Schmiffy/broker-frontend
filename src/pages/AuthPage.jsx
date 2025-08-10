@@ -68,6 +68,7 @@ function AuthPage() {
                         <input
                             type="password"
                             id="password"
+                            autoComplete="current-password"
                             {...register("password", {
                                 required: "Password is required",
                                 minLength: {

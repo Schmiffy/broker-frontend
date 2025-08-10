@@ -1,12 +1,25 @@
 import React, { useMemo } from 'react';
 
 function NewsWidget({ stocks, newsData, isLoading }) {
+    // Move symbols calculation outside of the news sorting
+    const symbols = useMemo(() => 
+        (stocks || [])
+            .filter(stock => stock && stock.symbol)
+            .map(stock => stock.symbol)
+            .filter(Boolean)
+            .map(symbol => symbol.toUpperCase()),
+        [stocks]
+    );
+
     const sortedNews = useMemo(() => {
         if (!stocks || stocks.length === 0) return [];
 
         let allRelevantNews = [];
         for (const stock of stocks) {
-            const stockSymbol = stock.name.toUpperCase();
+            // Safely access stock symbol
+            const stockSymbol = stock?.symbol?.toUpperCase();
+            if (!stockSymbol) continue;
+
             const newsForSymbol = newsData[stockSymbol];
             if (Array.isArray(newsForSymbol)) {
                 newsForSymbol.forEach(item => {
@@ -24,7 +37,7 @@ function NewsWidget({ stocks, newsData, isLoading }) {
         if (isLoading && sortedNews.length === 0) {
             return <p>Loading news...</p>;
         }
-        if (stocks.length === 0) {
+        if (!stocks || stocks.length === 0) {
             return <p>Add stocks to see relevant news.</p>;
         }
         if (sortedNews.length === 0) {
@@ -36,7 +49,9 @@ function NewsWidget({ stocks, newsData, isLoading }) {
                 <a href={item.url} target="_blank" rel="noopener noreferrer">
                     {item.headline.length > 80 ? `${item.headline.substring(0, 77)}...` : item.headline}
                 </a>
-                <span className="news-source">{item.stockSymbol} - {item.source || 'Unknown Source'}</span>
+                <span className="news-source">
+                    {item.stockSymbol} - {item.source || 'Unknown Source'}
+                </span>
             </div>
         ));
     };

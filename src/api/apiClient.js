@@ -11,6 +11,9 @@ const cache = new Map();
 const DEFAULT_CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
 
 // Request interceptor to add the auth token to headers
+
+
+
 apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('authToken');
@@ -30,16 +33,22 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Optional: Response interceptor for global error handling (e.g., 401 Unauthorized)
+// Response interceptor for global error handling
 apiClient.interceptors.response.use(
-  (response) => response, // Simply return the response if it's successful
-  (error) => {
+  (response) => response,
+  async (error) => {
     if (error.response && error.response.status === 401) {
-      console.error('Unauthorized (401). Token might be invalid or expired.');
-      // Here you might want to:
-      // 1. Clear the token: localStorage.removeItem('authToken');
-      // 2. Redirect to login: window.location.href = '/login';
-      // 3. Or try to refresh the token if you have a refresh token mechanism.
+      // Clear invalid token
+      localStorage.removeItem('authToken');
+      
+      // If this was not a public endpoint, reject with a specific error
+      if (!error.config.url.includes('/login')) {
+        return Promise.reject({
+          ...error,
+          isAuthError: true,
+          message: 'Authentication required. Please log in.'
+        });
+      }
     }
     return Promise.reject(error);
   }
