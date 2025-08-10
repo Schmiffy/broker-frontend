@@ -20,3 +20,14 @@ export const getPortfolio = () => {
 export const addStock = (stockData) => {
   return apiClient.post('/portfolio', stockData);
 };
+
+/**
+ * Deletes a stock from the user's portfolio.
+ * @param {string} symbol - The stock symbol to delete.
+ * @returns {Promise} A promise that resolves when the stock is deleted.
+ */
+export const deleteStock = (symbol) => {
+  return apiClient.delete(`/portfolio`, {
+    params: { symbol }
+  });
+};

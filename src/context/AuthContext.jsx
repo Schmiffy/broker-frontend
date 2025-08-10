@@ -5,17 +5,17 @@ export const AuthContext = createContext(null);
 
 // Create the Provider component
 export const AuthProvider = ({ children }) => {
-    // Check localStorage for an existing token on initial load
-    const [authToken, setAuthToken] = useState(localStorage.getItem('authToken'));
+    // Check sessionStorage for an existing token on initial load
+    const [authToken, setAuthToken] = useState(sessionStorage.getItem('authToken'));
 
     const login = useCallback((token) => {
-        localStorage.setItem('authToken', token);
+        sessionStorage.setItem('authToken', token);
         setAuthToken(token);
     }, []);
 
     const logout = useCallback(() => {
-        // Clear all auth-related items from localStorage
-        localStorage.removeItem('authToken');
+        // Clear all auth-related items from sessionStorage
+        sessionStorage.removeItem('authToken');
         
         // Clear application state
         setAuthToken(null);

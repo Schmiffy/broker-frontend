@@ -39,7 +39,7 @@ export const loadStocksFromStorage = async () => {
     }
 
     // Check authentication
-    const token = localStorage.getItem('authToken');
+    const token = sessionStorage.getItem('authToken');
     if (!token) {
         // Return local data when not authenticated
         return {

@@ -8,6 +8,7 @@ import PortfolioTable from '../components/PortfolioTable';
 import AddStockForm from '../components/AddStockForm';
 import { loadStocksFromStorage, saveStocksToStorage, STORAGE_KEY } from '../utils/storage';
 import { usePortfolioData } from '../hooks/usePortfolioData';
+import { deleteStock } from '../api/portfolioAPI';
 
 function DashboardPage() {
     const [stocks, setStocks] = useState([]);
@@ -67,11 +68,29 @@ function DashboardPage() {
         });
     };
 
-    const handleDeleteStock = (stockNameToDelete) => {
-        setStocks(prevStocks => {
-            const safeStocks = Array.isArray(prevStocks) ? prevStocks : [];
-            return safeStocks.filter(stock => stock && stock.name !== stockNameToDelete);
-        });
+    const handleDeleteStock = async (stockNameToDelete) => {
+        try {
+            // Delete from API first
+            await deleteStock(stockNameToDelete);
+            
+            // If API call succeeds, update local state
+            setStocks(prevStocks => {
+                const safeStocks = Array.isArray(prevStocks) ? prevStocks : [];
+                return safeStocks.filter(stock => stock && stock.name !== stockNameToDelete);
+            });
+        } catch (error) {
+            if (error.isAuthError) {
+                console.log('Working in offline mode - updating local storage only');
+                // In offline mode, just update local state
+                setStocks(prevStocks => {
+                    const safeStocks = Array.isArray(prevStocks) ? prevStocks : [];
+                    return safeStocks.filter(stock => stock && stock.name !== stockNameToDelete);
+                });
+            } else {
+                console.error('Failed to delete stock:', error);
+                alert('Failed to delete stock. Please try again.');
+            }
+        }
     };
 
     const existingStockNames = Array.isArray(stocks) 

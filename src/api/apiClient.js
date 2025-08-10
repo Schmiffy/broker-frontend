@@ -16,9 +16,9 @@ const DEFAULT_CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
 
 apiClient.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('authToken');
+    const token = sessionStorage.getItem('authToken');
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+      config.headers['Authorization'] = token;
     }
     // You can also set other default headers here if needed
     // For example, if most of your POST/PUT requests are JSON:
