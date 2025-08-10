@@ -14,8 +14,16 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const logout = useCallback(() => {
+        // Clear all auth-related items from localStorage
         localStorage.removeItem('authToken');
+        
+        // Clear application state
         setAuthToken(null);
+
+        // Clear any cached API data
+        if (typeof window !== 'undefined' && window.clearApiCache) {
+            window.clearApiCache();
+        }
     }, []);
 
     // useMemo ensures the context value object is stable, preventing unnecessary re-renders

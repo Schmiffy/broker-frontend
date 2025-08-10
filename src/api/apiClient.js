@@ -37,18 +37,16 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response && error.response.status === 401) {
-      // Clear invalid token
-      localStorage.removeItem('authToken');
-      
-      // If this was not a public endpoint, reject with a specific error
-      if (!error.config.url.includes('/login')) {
-        return Promise.reject({
-          ...error,
-          isAuthError: true,
-          message: 'Authentication required. Please log in.'
-        });
-      }
+    // Only handle 401 errors for authenticated endpoints
+    if (error.response?.status === 401 && !error.config.url.includes('/auth')) {
+      // Don't remove the token - just mark the error as auth-related
+      // This lets the application handle auth errors appropriately without
+      // immediately removing the token
+      return Promise.reject({
+        ...error,
+        isAuthError: true,
+        message: 'Authentication required. Please try again.'
+      });
     }
     return Promise.reject(error);
   }
