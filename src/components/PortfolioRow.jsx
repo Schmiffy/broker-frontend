@@ -1,6 +1,5 @@
 import React from 'react';
 import { formatNumber } from '../utils/formatters';
-import './PortfolioRow.css';
 
 function PortfolioRow({ stock, priceData, onDelete }) {
     // Guard clause to ensure stock and stock.name are valid and a non-empty string

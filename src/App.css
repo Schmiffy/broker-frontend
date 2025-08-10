@@ -435,3 +435,12 @@
         background-color: var(--danger-hover-color);
         box-shadow: 0 0 8px rgba(229, 115, 115, 0.7);
       }
+
+/* Portfolio row styles */
+.placeholder-text {
+    color: var(--input-border);
+    font-style: italic;
+    display: inline-block;
+    min-width: 80px;
+    text-align: right;
+}
